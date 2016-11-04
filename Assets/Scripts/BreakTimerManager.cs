@@ -34,6 +34,8 @@ public class BreakTimerManager : MonoBehaviour
 
         m_savedFuel = DragonValues.Instance.FuelAmount;
 
+        m_conditions = new Dictionary<string, Condition>();
+
         if(BreakKeys != null)
         {
             foreach(string _key in BreakKeys)
@@ -85,7 +87,7 @@ public class BreakTimerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets timer and conditions.
+    /// Resets timer and conditions and FuelAmount.
     /// </summary>
     public void Reset()
     {
@@ -95,6 +97,10 @@ public class BreakTimerManager : MonoBehaviour
         DragonValues.Instance.FuelAmount = m_savedFuel;
     }
 
+
+    /// <summary>
+    /// Debug usage.
+    /// </summary>
     public void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 100, 25), "Timer: " + m_timer.ToString("F2"));

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class DragonInputController
 {
@@ -30,6 +29,7 @@ public class DragonInputController
         float _roll = GetModifiedRoll();
         float _yaw = GetModifiedYaw();
 
+        AdjustSpeed();
         FartFuel();
         BurpFire();
 	}
@@ -113,14 +113,28 @@ public class DragonInputController
 
     #region Public Input Functions
 
+    private void AdjustSpeed()
+    {
+        float _accelerator = Input.GetAxis("Accelerator");
+        // TODO: Do something with this value to adjust movement speed.
+    }
+
     private void FartFuel()
     {
-        
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            // do something here?
+
+            m_dragonValues.FuelAmount -= m_dragonValues.FuelFartConsumption;
+        }
     }
 
     private void BurpFire()
     {
-
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            // Something to do here.
+        }
     }
 
     #endregion
