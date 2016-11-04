@@ -7,8 +7,8 @@ public class DragonInputController
 
     private float m_pitch, m_roll, m_yaw;
 
-    private BreakTimerManager m_breakTimeManager = null;
-    private DragonValues m_dragonValues = null;
+    private BreakTimerManager m_breakTimeManager = null; // Has to be on scene (singleton).
+    private DragonValues m_dragonValues = null; // Has to be on Dragon. (singleton)
 
 	// Use this for initialization
 	void Start ()
@@ -25,9 +25,9 @@ public class DragonInputController
 	// Update is called once per frame
 	void Update ()
     {
-        float _pitch = GetModifiedPitch();
-        float _roll = GetModifiedRoll();
-        float _yaw = GetModifiedYaw();
+        //float _pitch = GetModifiedPitch();
+        //float _roll = GetModifiedRoll();
+        //float _yaw = GetModifiedYaw();
 
         AdjustSpeed();
         FartFuel();
@@ -113,6 +113,23 @@ public class DragonInputController
 
     #region Public Input Functions
 
+    public float GetPitch()
+    {
+        return GetModifiedPitch();
+    }
+
+    public float GetRoll()
+    {
+        return GetModifiedRoll();
+    }
+
+    public float GetYaw()
+    {
+        return GetModifiedYaw();
+    }
+
+    #endregion
+
     private void AdjustSpeed()
     {
         float _accelerator = Input.GetAxis("Accelerator");
@@ -125,7 +142,7 @@ public class DragonInputController
         {
             // do something here?
 
-            m_dragonValues.FuelAmount -= m_dragonValues.FuelFartConsumption;
+            //m_dragonValues.FuelAmount -= m_dragonValues.FuelFartConsumption;
         }
     }
 
@@ -137,5 +154,5 @@ public class DragonInputController
         }
     }
 
-    #endregion
+    
 }
