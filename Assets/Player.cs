@@ -18,6 +18,9 @@ public class Player : MonoBehaviour {
     void Start ()
     {
         //VRSettings.renderScale = 1.5f;    //supersampling up/down (nosta/laske arvoa, default = 1f;
+
+        // kun peli alkaa, pelaaja istuu lohikäärmeen selässä, mutta mitään ei tapahdu ennenkuin pelaaja aloittaa pelin,
+        // painamalla "any key" (eli a)
 	}
 	
     void Update()
@@ -67,6 +70,10 @@ public class Player : MonoBehaviour {
 
     }
 
+    void SpitFireball()
+    {
+        //shoot a fire ball towards ground      huom: älä välitä siitä kuinka tuli itsessään käyttäytyy
+    }
 
     bool Hitsomething(LayerMask mask)
     {
@@ -83,5 +90,10 @@ public class Player : MonoBehaviour {
     void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        //kun pelaaja kuolee, peli "resettaa" suoraan eli lataa skenen uudestaan -> see Start()
     }
+
+
+    //high score systeemi
 }
