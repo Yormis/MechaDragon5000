@@ -20,29 +20,29 @@ public class ControlPanel : MonoBehaviour
     public MeshRenderer OilLight;
     public MeshRenderer GasLight;
 
-    public List<GameObject> TurnLeftBreakableParts;
-    public List<GameObject> TurnLeftSpawnableParts;
+    public List<GameObject> TurnLeftBreakableParts = new List<GameObject>();
+    public List<GameObject> TurnLeftSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> TurnRightBreakableParts;
-    public List<GameObject> TurnRightSpawnableParts;
+    public List<GameObject> TurnRightBreakableParts = new List<GameObject>();
+    public List<GameObject> TurnRightSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> PitchBreakableParts;
-    public List<GameObject> PitchSpawnableParts;
+    public List<GameObject> PitchBreakableParts = new List<GameObject>();
+    public List<GameObject> PitchSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> RollLeftBreakableParts;
-    public List<GameObject> RollLeftSpawnableParts;
+    public List<GameObject> RollLeftBreakableParts = new List<GameObject>();
+    public List<GameObject> RollLeftSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> RollRightBreakableParts;
-    public List<GameObject> RollRightSpawnableParts;
+    public List<GameObject> RollRightBreakableParts = new List<GameObject>();
+    public List<GameObject> RollRightSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> ShootFireBreakableParts;
-    public List<GameObject> ShootFireSpawnableParts;
+    public List<GameObject> ShootFireBreakableParts = new List<GameObject>();
+    public List<GameObject> ShootFireSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> DropOilBreakableParts;
-    public List<GameObject> DropOilSpawnableParts;
+    public List<GameObject> DropOilBreakableParts = new List<GameObject>();
+    public List<GameObject> DropOilSpawnableParts = new List<GameObject>();
 
-    public List<GameObject> SpeedThrottleBreakableParts;
-    public List<GameObject> SpeedThrottleSpawnableParts;
+    public List<GameObject> SpeedThrottleBreakableParts = new List<GameObject>();
+    public List<GameObject> SpeedThrottleSpawnableParts = new List<GameObject>();
 
     private Dictionary<string, List<GameObject>> m_breakableObjects;
     private Dictionary<string, List<GameObject>> m_spawnableObjects;
@@ -75,7 +75,7 @@ public class ControlPanel : MonoBehaviour
 
     public void UpdateColorForLight(string _key, BreakTimerManager.Condition _condition)
     {
-        BreakDragonApart(_key);
+        BreakDragonApart(_key, _condition);
 
         switch (_key)
         {
@@ -129,33 +129,63 @@ public class ControlPanel : MonoBehaviour
         return color;
     }
 
-    private void BreakDragonApart(string _key)
+    private void BreakDragonApart(string _key, BreakTimerManager.Condition _condition)
     {
         List<GameObject> _breakables = m_breakableObjects[_key];
         List<GameObject> _spawnables = m_spawnableObjects[_key];
 
-        if (_spawnables.Count == 1)
+        int _amountToBreak = 0;
+        int _amountToSpawn = 0;
+
+        switch(_condition)
         {
-            Instantiate(_spawnables[0], _breakables[0].transform);
+            case BreakTimerManager.Condition.Minor:
+                _amountToBreak = 1;
+                _amountToSpawn = 1;
+                break;
+            case BreakTimerManager.Condition.Severe:
+                _amountToBreak = _breakables.Count / 2;
+                _amountToSpawn = _spawnables.Count / 2;
+                break;
+            case BreakTimerManager.Condition.Broke:
+                _amountToBreak = _breakables.Count;
+                _amountToSpawn = _spawnables.Count;
+                break;
         }
-        else
+
+
+        if (_spawnables.Count > 0)
         {
-            for(int i = 0; i < _spawnables.Count / 2; i++)
+            if (_spawnables.Count == 1)
             {
-                Instantiate(_spawnables[i], _breakables[i].transform);
+                GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[0].transform);
+                _newObject.transform.parent = null;
+                _newObject.SetActive(true);
+            }
+            else
+            {
+                for (int i = 0; i < _amountToSpawn; i++)
+                {
+                    GameObject _newObject = (GameObject)Instantiate(_spawnables[i], _breakables[i].transform);
+                    _newObject.transform.parent = null;
+                    _newObject.SetActive(true);
+                }
             }
         }
 
-        if (_breakables.Count == 1)
+        if (_breakables.Count > 0)
         {
-            _breakables[0].SetActive(false);
-        }
-        else
-        {
-            for(int i = 0; i < _breakables.Count / 2; i++)
+            if (_breakables.Count == 1)
             {
-                _breakables[i].SetActive(false);
-                m_breakableObjects[_key].RemoveAt(i);
+                _breakables[0].SetActive(false);
+            }
+            else
+            {
+                for (int i = 0; i < _amountToBreak; i++)
+                {
+                    _breakables[i].SetActive(false);
+                    m_breakableObjects[_key].RemoveAt(i);
+                }
             }
         }
     }
