@@ -68,6 +68,7 @@ public class BreakTimerManager : MonoBehaviour
             m_conditions.Add(BreakingPoints.Shoot_Fire, Condition.Intact);
             m_conditions.Add(BreakingPoints.Drop_Oil, Condition.Intact);
             m_conditions.Add(BreakingPoints.Speed_Adjust, Condition.Intact);
+            m_conditions.Add(BreakingPoints.Turn_Up, Condition.Intact);
         }
 	}
 	
@@ -219,9 +220,9 @@ public class BreakTimerManager : MonoBehaviour
     /// </summary>
     public void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 25), "Timer: " + m_timer.ToString("F2"));
-        GUI.Label(new Rect(10, 35, 200, 25), "Last broken part: " + m_lastBreakingPartKey);
+        GUI.Label(new Rect(10, 500, 100, 25), "Timer: " + m_timer.ToString("F2"));
+        GUI.Label(new Rect(10, 525, 200, 25), "Last broken part: " + m_lastBreakingPartKey);
         if(m_lastBreakingPartKey != "none")
-            GUI.Label(new Rect(10, 60, 200, 25), "New condition: " + m_conditions[m_lastBreakingPartKey]);
+            GUI.Label(new Rect(10, 550, 200, 25), "New condition: " + m_conditions[m_lastBreakingPartKey]);
     }
 }
