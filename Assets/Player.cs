@@ -5,15 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
+    public GameObject fireball;
+    public Vector3 fireballOffset;
+    public float projectileSpeed;
+
     public Transform mechDragon;
 
     public LayerMask playerCollisionMask;
     Vector3 overlapOffset1 = new Vector3 (0,0,1.6f) , overLapOffset2 = new Vector3 (0,0, -1.6f);
 
     float pitch, yaw, roll, thrust;
+    public float acceleration, minSpeed = 0.1f,  MaxSpeed = 1f;
+    
+    Vector3 previousPos;
+    public float velocity;
 
-
-    bool broken;
+    bool GameStarted;
 
     void Start ()
     {
@@ -22,18 +29,24 @@ public class Player : MonoBehaviour {
 	
     void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            InputTracking.Recenter();
-        }
+        velocity = (mechDragon.position - previousPos).magnitude;
+        previousPos = mechDragon.position;
         
-        if (!broken)
+        if (GameStarted)
         {
+
+            if (Input.GetButton("Fire1"))
+            {   //TO DO: Fine tune velocityn vaikutus projectile speediin
+                GameObject fb = Instantiate(fireball, mechDragon.position + mechDragon.forward, Quaternion.identity) as GameObject;
+                fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 6 * velocity);
+            }
+            
+            //TO DO
+
             pitch = Input.GetAxis("Pitch");
-            yaw = -Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
+            yaw = Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
             roll = -Input.GetAxis("Roll");
-            thrust = Mathf.Clamp(Input.GetAxis("Accelerator"),0.1f, 1f);
+            //thrust = Mathf.Clamp(Input.GetAxis("Gas"),0.1f, 1f);  //legacy thrust
             
             mechDragon.Rotate(mechDragon.right * pitch, Space.World);   //climb up or down  ("elevator")
             mechDragon.Rotate(mechDragon.up * yaw, Space.World);        //idly barrel roll  ("ailerons")
@@ -42,35 +55,48 @@ public class Player : MonoBehaviour {
             //turn based on the roll ("banking)
             //mechDragon.Rotate(new Vector3(0, -Vector3.Dot(Vector3.up, mechDragon.right), 0));
 
+            if (Input.GetAxis("Gas") > 0.01f && thrust < MaxSpeed)
+            {
+                thrust = thrust + Time.deltaTime * acceleration;
+            }
+            else if (thrust > minSpeed)
+            {
+                thrust = thrust - Time.deltaTime * acceleration / 2;
+            }
+            else
+            {
+                thrust = minSpeed;
+            }
+
             mechDragon.Translate(mechDragon.forward * thrust, Space.World);
         }
         else
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                Reset();
-            }
-        }
+            if (Input.GetButton("BreathFire"))
+                StartGame();
+            
+        if (Input.GetKeyDown(KeyCode.R))
+            InputTracking.Recenter();
+        
+    }
 
+    void Accelerate()
+    {
 
     }
+    void DeAccelerate()
+    {
+
+    }
+
     void FixedUpdate()
     {
-        if (!broken)
-        {
+        if (GameStarted)
             if (Hitsomething(playerCollisionMask))
-            {
-                Destroy(mechDragon.gameObject);
-                broken = true;
-            }
-        }
-
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-
+    
     bool Hitsomething(LayerMask mask)
     {
-        //Collider[] hitColliders = Physics.OverlapSphere(mechDragon.position + overlapOffset1, 2f, playerCollisionMask);
         Collider[] hitColliders = Physics.OverlapCapsule(
             mechDragon.position + overlapOffset1, mechDragon.position + overLapOffset2, 2f, playerCollisionMask);
 
@@ -80,8 +106,17 @@ public class Player : MonoBehaviour {
             return false;
     }
 
-    void Reset()
+    void OnGUI()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (!GameStarted)
+            GUILayout.Label("Press A to Start");
     }
+
+    void StartGame()
+    {
+        GameStarted = true;
+    }
+
+
+    //high score systeemi
 }
