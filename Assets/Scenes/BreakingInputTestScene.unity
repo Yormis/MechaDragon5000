@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8057879b0949d64da36e360e25a8775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxFlightTime: 300
+  MaxFlightTime: 100
   BreakingAmount: 16
   UseDefinedBreakTimes: 0
   BreakTimes: []
@@ -400,6 +400,36 @@ Prefab:
       propertyPath: ShootFireBreakableParts.Array.data[0]
       value: 
       objectReference: {fileID: 1389652359}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Broken.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Broken.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Broken.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Severe.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Severe.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013316823920, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4,
+        type: 2}
+      propertyPath: Severe.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac7a1e261a0e13d4fbdf4eb7b144f2c4, type: 2}
   m_IsPrefabParent: 0
