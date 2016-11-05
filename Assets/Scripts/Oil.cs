@@ -14,7 +14,7 @@ public class Oil : MonoBehaviour
 	{
 
 		rb = GetComponent<Rigidbody>();
-		mr = GetComponent<MeshRenderer>();
+		mr = GetComponentInChildren<MeshRenderer>();
 		sc = GetComponent<SphereCollider>();
 	}
 
