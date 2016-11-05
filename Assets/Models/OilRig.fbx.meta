@@ -1,0 +1,133 @@
+fileFormatVersion: 2
+guid: 932bcae719b1a8d49ab6cf387055b6bf
+timeCreated: 1478341892
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Drill
+    100002: Gridpiece
+    100004: Home
+    100006: Oil
+    100008: OilOnkalo
+    100010: //RootNode
+    100012: OilTank
+    100014: OilTankPlatform
+    100016: Pillar
+    100018: Platform
+    100020: Propel
+    100022: PropelFrame
+    100024: SmallPlatform
+    400000: Drill
+    400002: Gridpiece
+    400004: Home
+    400006: Oil
+    400008: OilOnkalo
+    400010: //RootNode
+    400012: OilTank
+    400014: OilTankPlatform
+    400016: Pillar
+    400018: Platform
+    400020: Propel
+    400022: PropelFrame
+    400024: SmallPlatform
+    2300000: Drill
+    2300002: Gridpiece
+    2300004: Home
+    2300006: OilOnkalo
+    2300008: OilTank
+    2300010: OilTankPlatform
+    2300012: Pillar
+    2300014: Platform
+    2300016: Propel
+    2300018: PropelFrame
+    2300020: SmallPlatform
+    3300000: Drill
+    3300002: Gridpiece
+    3300004: Home
+    3300006: OilOnkalo
+    3300008: OilTank
+    3300010: OilTankPlatform
+    3300012: Pillar
+    3300014: Platform
+    3300016: Propel
+    3300018: PropelFrame
+    3300020: SmallPlatform
+    4300000: Home
+    4300002: Oil
+    4300004: OilOnkalo
+    4300006: OilTank
+    4300008: OilTankPlatform
+    4300010: SmallPlatform
+    4300012: Drill
+    4300014: Propel
+    4300016: PropelFrame
+    4300018: Gridpiece
+    4300020: Platform
+    4300022: Pillar
+    9500000: //RootNode
+    13700000: Oil
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
