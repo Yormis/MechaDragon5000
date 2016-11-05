@@ -21,14 +21,14 @@ public class InputTest : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        pitch = Input.GetAxis("Pitch");
-        roll = Input.GetAxis("Roll");
-        yaw = Input.GetAxis("Yaw");
-        gas = Input.GetAxis("Gas");
+        pitch = DragonInputController.Instance.GetPitch();
+        roll = DragonInputController.Instance.GetRoll();
+        yaw = DragonInputController.Instance.GetYaw();
+        gas = DragonInputController.Instance.GetGasSpeed();
 
-        resetCamera = Input.GetButton("ResetCamera");
-        breathFire = Input.GetButton("BreathFire");
-        fartOil = Input.GetButton("FartOil");
+        resetCamera = DragonInputController.Instance.ResetCamera();
+        breathFire = DragonInputController.Instance.BurpFire();
+        fartOil = DragonInputController.Instance.FartFuel();
     }
 
     void OnGUI()
