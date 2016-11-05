@@ -89,7 +89,6 @@ public class BreakTimerManager : MonoBehaviour
 
         if(BreakTimes[0] <= m_timer)
         {
-            Debug.LogWarning("doh");
             string _randomKey = "";
             if (BreakTimes.Count == 1)
             {
