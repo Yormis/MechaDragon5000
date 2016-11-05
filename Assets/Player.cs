@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
     Vector3 overlapOffset1 = new Vector3 (0,0,1.6f) , overLapOffset2 = new Vector3 (0,0, -1.6f);
 
     float pitch, yaw, roll, thrust;
+    public float acceleration, minSpeed = 0.1f,  MaxSpeed = 1f;
     
     Vector3 previousPos;
     public float velocity;
@@ -30,7 +31,6 @@ public class Player : MonoBehaviour {
     {
         velocity = (mechDragon.position - previousPos).magnitude;
         previousPos = mechDragon.position;
-
         
         if (GameStarted)
         {
@@ -41,10 +41,12 @@ public class Player : MonoBehaviour {
                 fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 6 * velocity);
             }
             
+            //TO DO
+
             pitch = Input.GetAxis("Pitch");
             yaw = Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
             roll = -Input.GetAxis("Roll");
-            thrust = Mathf.Clamp(Input.GetAxis("Gas"),0.1f, 1f);
+            //thrust = Mathf.Clamp(Input.GetAxis("Gas"),0.1f, 1f);  //legacy thrust
             
             mechDragon.Rotate(mechDragon.right * pitch, Space.World);   //climb up or down  ("elevator")
             mechDragon.Rotate(mechDragon.up * yaw, Space.World);        //idly barrel roll  ("ailerons")
@@ -53,15 +55,37 @@ public class Player : MonoBehaviour {
             //turn based on the roll ("banking)
             //mechDragon.Rotate(new Vector3(0, -Vector3.Dot(Vector3.up, mechDragon.right), 0));
 
+            if (Input.GetAxis("Gas") > 0.01f && thrust < MaxSpeed)
+            {
+                thrust = thrust + Time.deltaTime * acceleration;
+            }
+            else if (thrust > minSpeed)
+            {
+                thrust = thrust - Time.deltaTime * acceleration / 2;
+            }
+            else
+            {
+                thrust = minSpeed;
+            }
+
             mechDragon.Translate(mechDragon.forward * thrust, Space.World);
         }
         else
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("BreathFire"))
                 StartGame();
             
         if (Input.GetKeyDown(KeyCode.R))
             InputTracking.Recenter();
         
+    }
+
+    void Accelerate()
+    {
+
+    }
+    void DeAccelerate()
+    {
+
     }
 
     void FixedUpdate()

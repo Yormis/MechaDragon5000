@@ -782,6 +782,7 @@ MonoBehaviour:
   playerCollisionMask:
     serializedVersion: 2
     m_Bits: 256
+  acceleration: 1
   velocity: 0
 --- !u!1 &2030618870
 GameObject:
