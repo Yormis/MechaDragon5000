@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 462342}
   - 137: {fileID: 13731710}
   - 114: {fileID: 11477496}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Oil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,8 @@ GameObject:
   - 33: {fileID: 3344094}
   - 23: {fileID: 2362480}
   - 64: {fileID: 6403942}
-  m_Layer: 0
+  - 114: {fileID: 11445218}
+  m_Layer: 9
   m_Name: OilOnkalo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175666}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 11.031788, y: 1.1931044, z: -14.740308}
+  m_LocalPosition: {x: -0.22290039, y: -1.25, z: 1.4254398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: -89.980194, y: 0, z: 0}
   m_Children:
@@ -107,6 +108,17 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300004, guid: 932bcae719b1a8d49ab6cf387055b6bf, type: 3}
+--- !u!114 &11445218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94de431844040cb4393841b9eb2f26ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11477496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   curve:
+    serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
