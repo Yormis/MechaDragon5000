@@ -30,10 +30,10 @@ public class Player : MonoBehaviour {
         
         if (!broken)
         {
-            pitch = Input.GetAxis("Left_stick_vertical");
-            yaw = Input.GetAxis("Triggers");                //yaw = Input.GetAxis("Left_stick_horizontal");
-            roll = -Input.GetAxis("Left_stick_horizontal");
-            thrust = Mathf.Clamp(Input.GetAxis("Right_stick_vertical"),0.1f, 1f);
+            pitch = Input.GetAxis("Pitch");
+            yaw = -Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
+            roll = -Input.GetAxis("Roll");
+            thrust = Mathf.Clamp(Input.GetAxis("Accelerator"),0.1f, 1f);
             
             mechDragon.Rotate(mechDragon.right * pitch, Space.World);   //climb up or down  ("elevator")
             mechDragon.Rotate(mechDragon.up * yaw, Space.World);        //idly barrel roll  ("ailerons")
