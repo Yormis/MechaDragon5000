@@ -34,7 +34,7 @@ public class DragonInputController
         BurpFire();
 	}
 
-    #region Private PRY Functions
+    #region Adjusting sixaxis movements with condition
 
     private float GetModifiedPitch()
     {
