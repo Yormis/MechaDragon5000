@@ -42,35 +42,40 @@ public class BreakTimerManager : MonoBehaviour
         _instance = this;
 
         m_savedFuel = DragonValues.Instance.FuelAmount;
+
+        Init();
+	}
+
+    void Init()
+    {
         m_lastBreakingPartKey = "none";
 
         if (!UseDefinedBreakTimes)
             RandomizeBreakTimes();
 
         if(BreakingPartsKeys == null)
-        {
             BreakingPartsKeys = new List<string>();
-            BreakingPartsKeys.Add(BreakingPoints.Turn_Left);
-            BreakingPartsKeys.Add(BreakingPoints.Turn_Right);
-            BreakingPartsKeys.Add(BreakingPoints.Rotate_Left);
-            BreakingPartsKeys.Add(BreakingPoints.Rotate_Right);
-            BreakingPartsKeys.Add(BreakingPoints.Shoot_Fire);
-            BreakingPartsKeys.Add(BreakingPoints.Drop_Oil);
-            BreakingPartsKeys.Add(BreakingPoints.Speed_Adjust);
-        }
+
+        BreakingPartsKeys.Add(BreakingPoints.Turn_Left);
+        BreakingPartsKeys.Add(BreakingPoints.Turn_Right);
+        BreakingPartsKeys.Add(BreakingPoints.Rotate_Left);
+        BreakingPartsKeys.Add(BreakingPoints.Rotate_Right);
+        BreakingPartsKeys.Add(BreakingPoints.Shoot_Fire);
+        BreakingPartsKeys.Add(BreakingPoints.Drop_Oil);
+        BreakingPartsKeys.Add(BreakingPoints.Speed_Adjust);
+
         if(m_conditions == null)
-        {
             m_conditions = new Dictionary<string, Condition>();
-            m_conditions.Add(BreakingPoints.Turn_Left, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Turn_Right, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Rotate_Left, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Rotate_Right, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Shoot_Fire, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Drop_Oil, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Speed_Adjust, Condition.Intact);
-            m_conditions.Add(BreakingPoints.Turn_Up, Condition.Intact);
-        }
-	}
+
+        m_conditions.Add(BreakingPoints.Turn_Left, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Turn_Right, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Rotate_Left, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Rotate_Right, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Shoot_Fire, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Drop_Oil, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Speed_Adjust, Condition.Intact);
+        m_conditions.Add(BreakingPoints.Turn_Up, Condition.Intact);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -79,9 +84,11 @@ public class BreakTimerManager : MonoBehaviour
 
         DragonValues.Instance.FuelAmount -= Time.deltaTime * DragonValues.Instance.FuelConsumption;
 
+        if (BreakTimes.Count <= 0)
+            return;
+
         if(BreakTimes[0] <= m_timer)
         {
-            Debug.LogWarning("doh");
             string _randomKey = "";
             if (BreakTimes.Count == 1)
             {
@@ -95,8 +102,16 @@ public class BreakTimerManager : MonoBehaviour
             Condition _newCondition = GetNewConditionForKey(_randomKey);
 
             m_conditions[_randomKey] = _newCondition;
+            
+            if(_newCondition == Condition.Broke)
+            {
+                BreakingPartsKeys.Remove(_randomKey);
+            }
 
             BreakTimes.RemoveAt(0);
+
+            if(ControlPanel.Instance != null)
+                ControlPanel.Instance.UpdateColorForLight(_randomKey, _newCondition);
         }
         
 	}
@@ -107,6 +122,7 @@ public class BreakTimerManager : MonoBehaviour
         do
         {
             _key = BreakingPartsKeys[Random.Range(0, BreakingPartsKeys.Count)];
+
         } while (_key == m_lastBreakingPartKey);
 
         m_lastBreakingPartKey = _key;
@@ -196,6 +212,8 @@ public class BreakTimerManager : MonoBehaviour
     {
         ResetTimer();
         ResetConditions();
+
+        Init();
 
         if (DragonValues.Instance == null)
             return;
