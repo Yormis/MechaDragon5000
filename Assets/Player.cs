@@ -5,38 +5,46 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
+    public GameObject fireball;
+    public Vector3 fireballOffset;
+    public float projectileSpeed;
+
     public Transform mechDragon;
 
     public LayerMask playerCollisionMask;
     Vector3 overlapOffset1 = new Vector3 (0,0,1.6f) , overLapOffset2 = new Vector3 (0,0, -1.6f);
 
     float pitch, yaw, roll, thrust;
+    
+    Vector3 previousPos;
+    public float velocity;
 
-
-    bool broken;
+    bool GameStarted;
 
     void Start ()
     {
         //VRSettings.renderScale = 1.5f;    //supersampling up/down (nosta/laske arvoa, default = 1f;
-
-        // kun peli alkaa, pelaaja istuu lohikäärmeen selässä, mutta mitään ei tapahdu ennenkuin pelaaja aloittaa pelin,
-        // painamalla "any key" (eli a)
 	}
 	
     void Update()
     {
+        velocity = (mechDragon.position - previousPos).magnitude;
+        previousPos = mechDragon.position;
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            InputTracking.Recenter();
-        }
         
-        if (!broken)
+        if (GameStarted)
         {
+
+            if (Input.GetButton("Fire1"))
+            {   //TO DO: Fine tune velocityn vaikutus projectile speediin
+                GameObject fb = Instantiate(fireball, mechDragon.position + mechDragon.forward, Quaternion.identity) as GameObject;
+                fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 6 * velocity);
+            }
+            
             pitch = Input.GetAxis("Pitch");
-            yaw = -Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
+            yaw = Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
             roll = -Input.GetAxis("Roll");
-            thrust = Mathf.Clamp(Input.GetAxis("Accelerator"),0.1f, 1f);
+            thrust = Mathf.Clamp(Input.GetAxis("Gas"),0.1f, 1f);
             
             mechDragon.Rotate(mechDragon.right * pitch, Space.World);   //climb up or down  ("elevator")
             mechDragon.Rotate(mechDragon.up * yaw, Space.World);        //idly barrel roll  ("ailerons")
@@ -48,36 +56,23 @@ public class Player : MonoBehaviour {
             mechDragon.Translate(mechDragon.forward * thrust, Space.World);
         }
         else
-        {
             if (Input.GetButton("Fire1"))
-            {
-                Reset();
-            }
-        }
-
-
+                StartGame();
+            
+        if (Input.GetKeyDown(KeyCode.R))
+            InputTracking.Recenter();
+        
     }
+
     void FixedUpdate()
     {
-        if (!broken)
-        {
+        if (GameStarted)
             if (Hitsomething(playerCollisionMask))
-            {
-                Destroy(mechDragon.gameObject);
-                broken = true;
-            }
-        }
-
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-    void SpitFireball()
-    {
-        //shoot a fire ball towards ground      huom: älä välitä siitä kuinka tuli itsessään käyttäytyy
-    }
-
+    
     bool Hitsomething(LayerMask mask)
     {
-        //Collider[] hitColliders = Physics.OverlapSphere(mechDragon.position + overlapOffset1, 2f, playerCollisionMask);
         Collider[] hitColliders = Physics.OverlapCapsule(
             mechDragon.position + overlapOffset1, mechDragon.position + overLapOffset2, 2f, playerCollisionMask);
 
@@ -87,11 +82,15 @@ public class Player : MonoBehaviour {
             return false;
     }
 
-    void Reset()
+    void OnGUI()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (!GameStarted)
+            GUILayout.Label("Press A to Start");
+    }
 
-        //kun pelaaja kuolee, peli "resettaa" suoraan eli lataa skenen uudestaan -> see Start()
+    void StartGame()
+    {
+        GameStarted = true;
     }
 
 
