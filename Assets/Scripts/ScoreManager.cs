@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 	public static ScoreManager Instance { get { return _instance; } }
 
 	int score = 0;
-	public static int HiScore = 0;
+	public static int hiScore = 0;
 
 	public TextMesh textMesh;
 
@@ -20,5 +20,10 @@ public class ScoreManager : MonoBehaviour
 	{
 		score += addScore;
 		textMesh.text = score + "p";
+
+		if (score > hiScore)
+		{
+			hiScore = score;
+		}
 	}
 }
