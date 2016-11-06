@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20355f8bfbfe0f478457da9a64162cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBurnTime: 2
+  minBurnTime: 10
   burnableLayerMask:
     serializedVersion: 2
     m_Bits: 1024
