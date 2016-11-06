@@ -10,16 +10,22 @@ public class ScoreManager : MonoBehaviour
 	public static int hiScore = 0;
 
 	public TextMesh textMesh;
+	public TextMesh hiScoreTextMesh;
 
 	void Start()
 	{
+		if (hiScoreTextMesh != null)
+		{
+			hiScoreTextMesh.text = hiScore.ToString();
+		}
+
 		_instance = this;
 	}
 
 	public void AddScore(int addScore)
 	{
 		score += addScore;
-		textMesh.text = score + "p";
+		textMesh.text = score.ToString() + "p";
 
 		if (score > hiScore)
 		{
