@@ -29,6 +29,7 @@ public class Fireball : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        AudioManager.instance.PlayAudioAt(transform.position, "FireDestroy");
         mr.enabled = false;
         sc.enabled = false;
         StartCoroutine("Firerain");

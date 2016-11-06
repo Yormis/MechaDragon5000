@@ -1,0 +1,126 @@
+fileFormatVersion: 2
+guid: 8bb585fcd62ddcf4e83e7fa0428f2249
+timeCreated: 1478388341
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body_tank
+    100002: left_wing
+    100004: liftWings
+    100006: //RootNode
+    100008: paaaaaaa
+    100010: right_wing
+    100012: rolli_left
+    100014: rolli_right
+    100016: TailPiece009
+    100018: thrusters
+    400000: body_tank
+    400002: left_wing
+    400004: liftWings
+    400006: //RootNode
+    400008: paaaaaaa
+    400010: right_wing
+    400012: rolli_left
+    400014: rolli_right
+    400016: TailPiece009
+    400018: thrusters
+    2300000: body_tank
+    2300002: left_wing
+    2300004: liftWings
+    2300006: paaaaaaa
+    2300008: right_wing
+    2300010: rolli_left
+    2300012: rolli_right
+    2300014: TailPiece009
+    2300016: thrusters
+    3300000: body_tank
+    3300002: left_wing
+    3300004: liftWings
+    3300006: paaaaaaa
+    3300008: right_wing
+    3300010: rolli_left
+    3300012: rolli_right
+    3300014: TailPiece009
+    3300016: thrusters
+    4300000: thrusters
+    4300002: liftWings
+    4300004: rolli_left
+    4300006: rolli_right
+    4300008: left_wing
+    4300010: right_wing
+    4300012: body_tank
+    4300014: TailPiece009
+    4300016: paaaaaaa
+    7400000: thrusters|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400002: liftWings|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400004: rolli_left|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400006: rolli_right|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400008: left_wing|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400010: right_wing|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    7400012: body_tank|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Dragon|Take 001|BaseL
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

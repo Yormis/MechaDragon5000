@@ -13,7 +13,7 @@ public class Compass : MonoBehaviour {
 	
 	void Update ()
     {
-
+        if (ball != null)
         ball.rotation = Quaternion.Slerp(ball.rotation, Quaternion.identity, 1);
 	}
 }
