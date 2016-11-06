@@ -10,9 +10,15 @@ public class ScoreManager : MonoBehaviour
 	public static int hiScore = 0;
 
 	public TextMesh textMesh;
+	public TextMesh hiScoreTextMesh;
 
 	void Start()
 	{
+		if (hiScoreTextMesh != null)
+		{
+			hiScoreTextMesh.text = hiScore;
+		}
+
 		_instance = this;
 	}
 
