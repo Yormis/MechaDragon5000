@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
+    public BreakTimerManager m_timerManager;
+
     AudioManager audioManager;
 
     public Animator anim;
@@ -27,12 +29,15 @@ public class Player : MonoBehaviour {
 
     bool GameStarted;
 
+    private DragonInputController m_breakableControls = null;
+
     void Start ()
     {
         //VRSettings.renderScale = 1.5f;    //supersampling up/down (nosta/laske arvoa, default = 1f;
 
         audioManager = AudioManager.instance;
 
+        m_breakableControls = DragonInputController.Instance;
 	}
 	
     void SetAnimFloat(string name, float f, float minValue)
@@ -76,7 +81,7 @@ public class Player : MonoBehaviour {
         if (GameStarted)
         {
 
-            if (Input.GetButtonDown("Fire1"))
+            if (/*Input.GetButtonDown("Fire1")*/ m_breakableControls.BurpFire())
             {   //TO DO: Fine tune velocityn vaikutus projectile speediin
                 GameObject fb = Instantiate(fireball, jaw.position, Quaternion.identity) as GameObject;
                 fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 10 * velocity /2 );
@@ -85,7 +90,7 @@ public class Player : MonoBehaviour {
             }
 
             //TODO drop oil
-            if (Input.GetButtonDown("Fire2"))
+            if (/*Input.GetButtonDown("Fire2")*/ m_breakableControls.FartFuel())
             {
                 audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, -2.6f, -8.5f), "OilDrop");
             }
@@ -181,6 +186,7 @@ public class Player : MonoBehaviour {
     void StartGame()
     {
         GameStarted = true;
+        m_timerManager.enabled = !m_timerManager.enabled;
     }
 
 

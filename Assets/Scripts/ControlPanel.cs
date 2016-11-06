@@ -6,6 +6,8 @@ public class ControlPanel : MonoBehaviour
     private static ControlPanel _instance = null;
     public static ControlPanel Instance { get { return _instance; } }
 
+    public float SpawnableScale = 0.5f;
+
     public Color Intact;
     public Color Minor;
     public Color Severe;
@@ -131,8 +133,13 @@ public class ControlPanel : MonoBehaviour
 
     private void BreakDragonApart(string _key, BreakTimerManager.Condition _condition)
     {
+        Debug.LogWarning("Key: " + _key + "\nCondition: " + _condition);
         List<GameObject> _breakables = m_breakableObjects[_key];
         List<GameObject> _spawnables = m_spawnableObjects[_key];
+
+        Debug.LogWarning("Breakables count: " + _breakables.Count);
+        Debug.LogWarning("Spawnables count: " + _spawnables.Count);
+
 
         int _amountToBreak = 0;
         int _amountToSpawn = 0;
@@ -153,22 +160,28 @@ public class ControlPanel : MonoBehaviour
                 break;
         }
 
+        Debug.LogWarning("Amount to break: " + _amountToBreak);
+        Debug.LogWarning("Amount to spawn: " + _amountToSpawn);
+
+
 
         if (_spawnables.Count > 0)
         {
             if (_spawnables.Count == 1)
             {
-                GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[0].transform);
-                _newObject.transform.parent = null;
+                GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[0].transform.position, _breakables[0].transform.rotation);
+                _newObject.transform.localScale *= SpawnableScale;
                 _newObject.SetActive(true);
+                m_spawnableObjects[_key].RemoveAt(0);
             }
             else
             {
                 for (int i = 0; i < _amountToSpawn; i++)
                 {
-                    GameObject _newObject = (GameObject)Instantiate(_spawnables[i], _breakables[i].transform);
-                    _newObject.transform.parent = null;
+                    GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[i].transform.position, _breakables[i].transform.rotation);
+                    _newObject.transform.localScale *= SpawnableScale;
                     _newObject.SetActive(true);
+                    m_spawnableObjects[_key].RemoveAt(0);
                 }
             }
         }
@@ -178,13 +191,14 @@ public class ControlPanel : MonoBehaviour
             if (_breakables.Count == 1)
             {
                 _breakables[0].SetActive(false);
+                m_breakableObjects[_key].RemoveAt(0);
             }
             else
             {
                 for (int i = 0; i < _amountToBreak; i++)
                 {
-                    _breakables[i].SetActive(false);
-                    m_breakableObjects[_key].RemoveAt(i);
+                    _breakables[0].SetActive(false);
+                    m_breakableObjects[_key].RemoveAt(0);
                 }
             }
         }

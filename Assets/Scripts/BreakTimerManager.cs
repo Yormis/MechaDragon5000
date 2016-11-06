@@ -41,7 +41,7 @@ public class BreakTimerManager : MonoBehaviour
     {
         _instance = this;
 
-        m_savedFuel = DragonValues.Instance.FuelAmount;
+        //m_savedFuel = DragonValues.Instance.FuelAmount;
 
         Init();
 	}
@@ -60,7 +60,6 @@ public class BreakTimerManager : MonoBehaviour
         BreakingPartsKeys.Add(BreakingPoints.Turn_Right);
         BreakingPartsKeys.Add(BreakingPoints.Rotate_Left);
         BreakingPartsKeys.Add(BreakingPoints.Rotate_Right);
-        BreakingPartsKeys.Add(BreakingPoints.Shoot_Fire);
         BreakingPartsKeys.Add(BreakingPoints.Drop_Oil);
         BreakingPartsKeys.Add(BreakingPoints.Speed_Adjust);
 
@@ -80,6 +79,7 @@ public class BreakTimerManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        
         m_timer += Time.deltaTime;
 
         DragonValues.Instance.FuelAmount -= Time.deltaTime * DragonValues.Instance.FuelConsumption;
@@ -90,7 +90,12 @@ public class BreakTimerManager : MonoBehaviour
         if(BreakTimes[0] <= m_timer)
         {
             string _randomKey = "";
-            if (BreakTimes.Count == 1)
+
+            if(BreakTimes.Count == 1)
+            {
+                _randomKey = BreakingPoints.Shoot_Fire;
+            }
+            else if (BreakTimes.Count == 2)
             {
                 _randomKey = BreakingPoints.Turn_Up;
             }
@@ -118,15 +123,7 @@ public class BreakTimerManager : MonoBehaviour
 
     string GetRandomBreakingPoint()
     {
-        string _key = "";
-        do
-        {
-            _key = BreakingPartsKeys[Random.Range(0, BreakingPartsKeys.Count)];
-
-        } while (_key == m_lastBreakingPartKey);
-
-        m_lastBreakingPartKey = _key;
-        return _key;
+        return BreakingPartsKeys[Random.Range(0, BreakingPartsKeys.Count)];
     }
 
     Condition GetNewConditionForKey(string _key)
@@ -141,10 +138,10 @@ public class BreakTimerManager : MonoBehaviour
         switch(_key)
         {
             case BreakingPoints.Turn_Left:
-                _newCondition = GetNextStage(m_conditions[_key], true);
+                _newCondition = GetNextStage(m_conditions[_key], false);
                 break;
             case BreakingPoints.Turn_Right:
-                _newCondition = GetNextStage(m_conditions[_key], true);
+                _newCondition = GetNextStage(m_conditions[_key], false);
                 break;
             case BreakingPoints.Turn_Up:
                 _newCondition = GetNextStage(m_conditions[_key], false);
@@ -236,11 +233,11 @@ public class BreakTimerManager : MonoBehaviour
     /// <summary>
     /// Debug usage.
     /// </summary>
-    public void OnGUI()
-    {
-        GUI.Label(new Rect(10, 500, 100, 25), "Timer: " + m_timer.ToString("F2"));
-        GUI.Label(new Rect(10, 525, 200, 25), "Last broken part: " + m_lastBreakingPartKey);
-        if(m_lastBreakingPartKey != "none")
-            GUI.Label(new Rect(10, 550, 200, 25), "New condition: " + m_conditions[m_lastBreakingPartKey]);
-    }
+    //public void OnGUI()
+    //{
+    //    GUI.Label(new Rect(10, 500, 100, 25), "Timer: " + m_timer.ToString("F2"));
+    //    GUI.Label(new Rect(10, 525, 200, 25), "Last broken part: " + m_lastBreakingPartKey);
+    //    if(m_lastBreakingPartKey != "none")
+    //        GUI.Label(new Rect(10, 550, 200, 25), "New condition: " + m_conditions[m_lastBreakingPartKey]);
+    //}
 }
