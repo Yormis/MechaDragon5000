@@ -36,6 +36,8 @@ public class BreakTimerManager : MonoBehaviour
     // Debug usage
     private int m_breakIndex = 0;
 
+    public Needle needle;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -83,6 +85,7 @@ public class BreakTimerManager : MonoBehaviour
         m_timer += Time.deltaTime;
 
         DragonValues.Instance.FuelAmount -= Time.deltaTime * DragonValues.Instance.FuelConsumption;
+        needle.SetTarget(DragonValues.Instance.FuelAmount/100.0f);
 
         if (BreakTimes.Count <= 0)
             return;

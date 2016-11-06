@@ -9,6 +9,7 @@ public class Burnable : MonoBehaviour
 
 	public void Burn()
 	{
+        AudioManager.instance.PlayAudioAt(transform.position, "FireDestroy");
 		ScoreManager.Instance.AddScore(score);
 
 		if (explosionParticle != null)

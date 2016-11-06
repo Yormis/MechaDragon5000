@@ -202,7 +202,7 @@ public class DragonInputController : MonoBehaviour
 
     public bool DropFuel()
     {
-        if (Input.GetButton("DropOil") || Input.GetKey(KeyCode.F))
+        if (Input.GetButtonDown("DropOil") || Input.GetKey(KeyCode.F))
         {
             if (m_breakTimeManager == null)
             {
@@ -221,6 +221,11 @@ public class DragonInputController : MonoBehaviour
                 return false;
             }
 
+            if(m_dragonValues == null)
+            {
+                m_dragonValues = DragonValues.Instance;
+            }
+
             m_dragonValues.FuelAmount -= m_dragonValues.FuelFartConsumption;
 
             return true;
@@ -231,7 +236,7 @@ public class DragonInputController : MonoBehaviour
 
     public bool BurpFire()
     {
-        if(Input.GetButton("BreathFire") || Input.GetKey(KeyCode.G))
+        if(Input.GetButtonDown("BreathFire") || Input.GetKey(KeyCode.G))
         {
             if (m_breakTimeManager == null)
             {

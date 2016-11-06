@@ -5,15 +5,22 @@ public class Compass : MonoBehaviour {
 
     public Transform mount;
     public Transform ball;
-    
-	void Start ()
+    Quaternion rot;
+    Transform followTransform;
+
+	void Awake ()
     {
-	
-	}
+        rot = transform.rotation;
+        followTransform = transform.parent;
+        transform.parent = null;
+    }
 	
 	void Update ()
     {
         if (ball != null)
-        ball.rotation = Quaternion.Slerp(ball.rotation, Quaternion.identity, 1);
-	}
+            Quaternion.Slerp(ball.rotation, rot, 3.0f * Time.deltaTime);
+
+        transform.position = followTransform.position;
+
+    }
 }

@@ -11,10 +11,13 @@ public class Player : MonoBehaviour {
 
     public Animator anim;
     public GameObject fireball;
+    public GameObject oilDrop;
+    public Transform oilDropPos;
     public Vector3 fireballOffset;
     public Transform jaw;
     public float projectileSpeed;
 
+    public float hitRadius = 0.5f;
 
     public Transform mechDragon;
 
@@ -72,12 +75,28 @@ public class Player : MonoBehaviour {
     }
 
     float fireAnimV;
+    bool isUpdate = true;
 
     void Update()
     {
+        if (!isUpdate)
+            return;
+
+        if(m_breakableControls == null)
+        {
+            m_breakableControls = DragonInputController.Instance;
+        }
+
         velocity = (mechDragon.position - previousPos).magnitude;
         previousPos = mechDragon.position;
         
+        if(DragonValues.Instance.FuelAmount <= 0.0f)
+        {
+            AudioManager.instance.PlayAudioAt(mechDragon.position, "LowFuel", mechDragon);
+            gameObject.AddComponent<Rigidbody>();
+            isUpdate = false;
+        }
+
         if (GameStarted)
         {
 
@@ -85,14 +104,16 @@ public class Player : MonoBehaviour {
             {   //TO DO: Fine tune velocityn vaikutus projectile speediin
                 GameObject fb = Instantiate(fireball, jaw.position, Quaternion.identity) as GameObject;
                 fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 10 * velocity /2 );
-                audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, 0, 23), "FireBreath");
+                AudioManager.instance.PlayAudioAt(mechDragon.position + new Vector3(0, 0, 23), "FireBreath");
                 fireAnimV = 1.0f;
             }
 
             //TODO drop oil
             if (/*Input.GetButtonDown("Fire2")*/ m_breakableControls.DropFuel())
             {
-                audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, -2.6f, -8.5f), "OilDrop");
+                GameObject fb = Instantiate(oilDrop, oilDropPos.position, Quaternion.identity) as GameObject;
+                fb.GetComponent<Oil>().Shoot(Vector3.down, projectileSpeed);
+                AudioManager.instance.PlayAudioAt(mechDragon.position + new Vector3(0, -2.6f, -8.5f), "OilDrop");
             }
 
             fireAnimV -= Time.deltaTime * 1.5f;
@@ -145,7 +166,7 @@ public class Player : MonoBehaviour {
             audioManager.PlayAudioAt(mechDragon.position, "GameStart");
         }
             
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetButtonDown("ResetCamera"))
             InputTracking.Recenter();
         
     }
@@ -169,7 +190,7 @@ public class Player : MonoBehaviour {
     bool Hitsomething(LayerMask mask)
     {
         Collider[] hitColliders = Physics.OverlapCapsule(
-            mechDragon.position + overlapOffset1, mechDragon.position + overLapOffset2, 2f, playerCollisionMask);
+            mechDragon.position + overlapOffset1, mechDragon.position + overLapOffset2, hitRadius, playerCollisionMask);
 
         if (hitColliders.Length > 0)
             return true;

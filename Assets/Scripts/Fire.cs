@@ -25,7 +25,8 @@ public class Fire : MonoBehaviour {
 
 		for (int i = 0; i < cols.Length; ++i)
 		{
-			Instantiate (fire, cols [i].transform.position, Quaternion.identity);
+            AudioManager.instance.PlayAudioAt(cols[i].transform.position, "FireSpread");
+            Instantiate (fire, cols [i].transform.position, Quaternion.identity);
 			cols [i].SendMessage ("Burn");
 		}
     }

@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 5
+  explosionParticle: {fileID: 1000013514211074, guid: 26e5a62af7d40de4897edd2add06412c,
+    type: 2}
 --- !u!114 &11477496
 MonoBehaviour:
   m_ObjectHideFlags: 1

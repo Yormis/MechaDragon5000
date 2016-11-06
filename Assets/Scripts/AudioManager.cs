@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
             Destroy(this.gameObject);
     }
     
-    public void PlayAudioAt(Vector3 pos, string clipName)
+    public void PlayAudioAt(Vector3 pos, string clipName, Transform newParent = null)
     {
         bool success = false;
         foreach (Transform child in transform)
@@ -24,6 +24,11 @@ public class AudioManager : MonoBehaviour {
                 child.position = pos;
                 child.GetComponent<AudioSource>().Play();
                 success = true;
+
+                if(newParent != null)
+                {
+                    child.transform.parent = newParent;
+                }
             }
         }
         if (!success)

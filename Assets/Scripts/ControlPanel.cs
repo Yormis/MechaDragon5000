@@ -167,8 +167,11 @@ public class ControlPanel : MonoBehaviour
 
         if (_spawnables.Count > 0)
         {
+         
+
             if (_spawnables.Count == 1)
             {
+                AudioManager.instance.PlayAudioAt(_breakables[0].transform.position, "RemovePiece");
                 GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[0].transform.position, _breakables[0].transform.rotation);
                 _newObject.transform.localScale *= SpawnableScale;
                 _newObject.SetActive(true);
@@ -178,6 +181,7 @@ public class ControlPanel : MonoBehaviour
             {
                 for (int i = 0; i < _amountToSpawn; i++)
                 {
+                    AudioManager.instance.PlayAudioAt(_breakables[i].transform.position, "RemovePiece");
                     GameObject _newObject = (GameObject)Instantiate(_spawnables[0], _breakables[i].transform.position, _breakables[i].transform.rotation);
                     _newObject.transform.localScale *= SpawnableScale;
                     _newObject.SetActive(true);

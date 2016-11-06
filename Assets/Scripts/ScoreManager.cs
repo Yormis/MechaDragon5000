@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
 	{
 		if (hiScoreTextMesh != null)
 		{
-			hiScoreTextMesh.text = hiScore.ToString();
+			hiScoreTextMesh.text = hiScore.ToString() + "p";
 		}
 
 		_instance = this;

@@ -13,7 +13,7 @@ public class Fireball : MonoBehaviour {
     {
 
         rb = GetComponent<Rigidbody>();
-        mr = GetComponent<MeshRenderer>();
+        mr = GetComponentInChildren<MeshRenderer>();
         sc = GetComponent<SphereCollider>();
     }
 
@@ -42,9 +42,9 @@ public class Fireball : MonoBehaviour {
 
         Dropfire(rainorigin);
 		yield return new WaitForSeconds(rainRate);
-		MakeItRain (rainorigin, 2.0f, 1.0f);
+		MakeItRain (rainorigin, 2.5f, 1.0f);
 		yield return new WaitForSeconds(rainRate);
-		MakeItRain (rainorigin, 1.0f, 2.0f);
+		MakeItRain (rainorigin, 1.5f, 2.0f);
 
         Destroy(gameObject);
     }
