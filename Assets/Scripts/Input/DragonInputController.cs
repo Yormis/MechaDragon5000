@@ -15,11 +15,9 @@ public class DragonInputController : MonoBehaviour
     {
         _instance = this;
 
-        if (m_breakTimeManager == null)
-            m_breakTimeManager = BreakTimerManager.Instance;
+        m_breakTimeManager = BreakTimerManager.Instance;
 
-        if (m_dragonValues == null)
-            m_dragonValues = DragonValues.Instance;
+        m_dragonValues = DragonValues.Instance;
 	}
 	
 	// Update is called once per frame
@@ -30,8 +28,8 @@ public class DragonInputController : MonoBehaviour
         //float _yaw = GetModifiedYaw();
 
         //AdjustSpeed();
-        FartFuel();
-        BurpFire();
+        //FartFuel();
+        //BurpFire();
         //ResetCamera();
 	}
 
@@ -41,6 +39,11 @@ public class DragonInputController : MonoBehaviour
     {
         float _modifiedPitch = Input.GetAxis("Pitch");
         float _multiplier = 1.0f;
+
+        if(m_breakTimeManager == null)
+        {
+            m_breakTimeManager = BreakTimerManager.Instance;
+        }
 
         if (m_breakTimeManager.m_conditions == null)
         {
@@ -66,6 +69,11 @@ public class DragonInputController : MonoBehaviour
     {
         float _modifiedRoll = Input.GetAxis("Roll");
         float _multiplier = 1.0f;
+
+        if (m_breakTimeManager == null)
+        {
+            m_breakTimeManager = BreakTimerManager.Instance;
+        }
 
         if (m_breakTimeManager.m_conditions == null)
         {
@@ -106,6 +114,11 @@ public class DragonInputController : MonoBehaviour
     {
         float _modifiedYaw = Input.GetAxis("Yaw");
         float _multiplier = 1.0f;
+
+        if (m_breakTimeManager == null)
+        {
+            m_breakTimeManager = BreakTimerManager.Instance;
+        }
 
         if (m_breakTimeManager.m_conditions == null)
         {
@@ -163,6 +176,11 @@ public class DragonInputController : MonoBehaviour
 
     public float GetGasSpeed()
     {
+        if (m_breakTimeManager == null)
+        {
+            m_breakTimeManager = BreakTimerManager.Instance;
+        }
+
         if (m_breakTimeManager.m_conditions == null)
         {
             Debug.LogError("Conditions Dictionary is not set!");
@@ -175,16 +193,22 @@ public class DragonInputController : MonoBehaviour
         }
 
         return (Input.GetAxis("Gas") + 1.0f) / 2;
+        //return Input.GetAxis("Gas");
     }
 
     #endregion
 
 
 
-    public bool FartFuel()
+    public bool DropFuel()
     {
-        if (Input.GetButton("FartOil") || Input.GetKey(KeyCode.F))
+        if (Input.GetButton("DropOil") || Input.GetKey(KeyCode.F))
         {
+            if (m_breakTimeManager == null)
+            {
+                m_breakTimeManager = BreakTimerManager.Instance;
+            }
+
             if (m_breakTimeManager.m_conditions == null)
             {
                 Debug.LogError("Conditions Dictionary is not set!");
@@ -209,6 +233,11 @@ public class DragonInputController : MonoBehaviour
     {
         if(Input.GetButton("BreathFire") || Input.GetKey(KeyCode.G))
         {
+            if (m_breakTimeManager == null)
+            {
+                m_breakTimeManager = BreakTimerManager.Instance;
+            }
+
             if (m_breakTimeManager.m_conditions == null)
             {
                 Debug.LogError("Conditions Dictionary is not set!");

@@ -8,7 +8,6 @@ public class InputTest : MonoBehaviour
     float yaw = 0f;
     float gas = 0f;
 
-    bool resetCamera = false;
     bool breathFire = false;
     bool fartOil = false;
 
@@ -26,14 +25,13 @@ public class InputTest : MonoBehaviour
         yaw = DragonInputController.Instance.GetYaw();
         gas = DragonInputController.Instance.GetGasSpeed();
 
-        //resetCamera = DragonInputController.Instance.ResetCamera();
         breathFire = DragonInputController.Instance.BurpFire();
-        fartOil = DragonInputController.Instance.FartFuel();
+        fartOil = DragonInputController.Instance.DropFuel();
     }
 
     void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 500, 2000), "Pitch - " + pitch + "\nRoll - " + roll + "\nYaw - " + yaw + "\nGas " + gas
-            + "\n\nResetCamera: " + resetCamera + "\nBreathFire: " + breathFire + "\nFartOil: " + fartOil);
+            + "\nBreathFire: " + breathFire + "\nFartOil: " + fartOil);
     }
 }
