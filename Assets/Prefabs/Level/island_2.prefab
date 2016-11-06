@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010364221212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: island_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - 33: {fileID: 33000010061766652}
   - 23: {fileID: 23000010550254054}
   - 64: {fileID: 64000010727770084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: yla.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - 33: {fileID: 33000013861360844}
   - 23: {fileID: 23000013225246470}
   - 64: {fileID: 64000013523377518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
