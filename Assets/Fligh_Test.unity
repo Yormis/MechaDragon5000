@@ -975,6 +975,11 @@ AudioSource:
 Transform:
   m_PrefabParentObject: {fileID: 400018, guid: d27cc77b9776fb346b3265fe1561ef52, type: 3}
   m_PrefabInternal: {fileID: 1697386334}
+--- !u!23 &689070251 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 2300012, guid: 8cf8b26b545f0a44db62f56ae25e27dd,
+    type: 3}
+  m_PrefabInternal: {fileID: 1490580976}
 --- !u!4 &749598970 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -1882,6 +1887,8 @@ GameObject:
   - 114: {fileID: 1818599655}
   - 114: {fileID: 1818599656}
   - 114: {fileID: 1818599657}
+  - 114: {fileID: 1818599658}
+  - 114: {fileID: 1818599659}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1952,9 +1959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f17a2e4ec352e044a2a9930aac13b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Intact: {r: 0, g: 0, b: 0, a: 0}
-  Minor: {r: 0, g: 0, b: 0, a: 0}
-  Severe: {r: 0, g: 0, b: 0, a: 0}
+  Intact: {r: 0.19739448, g: 0.5441177, b: 0.13202855, a: 0}
+  Minor: {r: 0.75735295, g: 0.7418372, b: 0.19490701, a: 0}
+  Severe: {r: 0.9485294, g: 0.06974482, b: 0.087926425, a: 0}
   Broken: {r: 0, g: 0, b: 0, a: 0}
   PitchLight: {fileID: 1891039052}
   RollLeftLight: {fileID: 1891039051}
@@ -1963,7 +1970,7 @@ MonoBehaviour:
   YawRightLight: {fileID: 1891039048}
   BreathLight: {fileID: 1891039047}
   OilLight: {fileID: 1891039046}
-  GasLight: {fileID: 0}
+  GasLight: {fileID: 689070251}
   TurnLeftBreakableParts: []
   TurnLeftSpawnableParts: []
   TurnRightBreakableParts: []
@@ -1980,6 +1987,35 @@ MonoBehaviour:
   DropOilSpawnableParts: []
   SpeedThrottleBreakableParts: []
   SpeedThrottleSpawnableParts: []
+--- !u!114 &1818599658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818599653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8057879b0949d64da36e360e25a8775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFlightTime: 300
+  BreakingAmount: 16
+  UseDefinedBreakTimes: 0
+  BreakTimes: []
+--- !u!114 &1818599659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818599653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8e8731511b97d4381d896723e4b77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FuelAmount: 100
+  FuelConsumption: 0.2
+  FuelFartConsumption: 5
 --- !u!1001 &1891039045
 Prefab:
   m_ObjectHideFlags: 0

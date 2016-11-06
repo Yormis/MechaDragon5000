@@ -117,6 +117,7 @@ public class Player : MonoBehaviour {
             //turn based on the roll ("banking)
             //mechDragon.Rotate(new Vector3(0, -Vector3.Dot(Vector3.up, mechDragon.right), 0));
 
+            //muista muokata fuel consumptionia thrustin/kaasun mukaan
             if (Input.GetAxis("Gas") > 0.01f && thrust < MaxSpeed)
             {
                 thrust = thrust + Time.deltaTime * acceleration;
