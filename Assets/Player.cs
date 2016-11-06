@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
+    AudioManager audioManager;
+
+    public Animator anim;
     public GameObject fireball;
     public Vector3 fireballOffset;
+    public Transform jaw;
     public float projectileSpeed;
+
 
     public Transform mechDragon;
 
@@ -25,8 +30,44 @@ public class Player : MonoBehaviour {
     void Start ()
     {
         //VRSettings.renderScale = 1.5f;    //supersampling up/down (nosta/laske arvoa, default = 1f;
+
+        audioManager = AudioManager.instance;
+
 	}
 	
+    void SetAnimFloat(string name, float f, float minValue)
+    {
+        bool positive = minValue > 0.0f;
+
+        if(positive)
+        {
+            if (f > minValue)
+            {
+                anim.SetFloat(name, f);
+            }
+            else
+            {
+                anim.SetFloat(name, 0.0f);
+            }
+        }
+        else
+        {
+            if (f < minValue)
+            {
+                f = Mathf.Abs(f);
+                anim.SetFloat(name, f);
+            }
+            else
+            {
+                anim.SetFloat(name, 0.0f);
+            }
+        }
+
+        
+    }
+
+    float fireAnimV;
+
     void Update()
     {
         velocity = (mechDragon.position - previousPos).magnitude;
@@ -35,19 +76,40 @@ public class Player : MonoBehaviour {
         if (GameStarted)
         {
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {   //TO DO: Fine tune velocityn vaikutus projectile speediin
-                GameObject fb = Instantiate(fireball, mechDragon.position + mechDragon.forward, Quaternion.identity) as GameObject;
-                fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 6 * velocity);
+                GameObject fb = Instantiate(fireball, jaw.position, Quaternion.identity) as GameObject;
+                fb.GetComponent<Fireball>().Shoot(mechDragon.forward, projectileSpeed * 10 * velocity /2 );
+                audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, 0, 23), "FireBreath");
+                fireAnimV = 1.0f;
             }
-            
-            //TO DO
 
-            pitch = Input.GetAxis("Pitch");
-            yaw = Input.GetAxis("Yaw");                //yaw = Input.GetAxis("Left_stick_horizontal");
+            //TODO drop oil
+            if (Input.GetButtonDown("Fire2"))
+            {
+                audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, -2.6f, -8.5f), "OilDrop");
+            }
+
+            fireAnimV -= Time.deltaTime * 1.5f;
+            fireAnimV = Mathf.Clamp01(fireAnimV);
+            anim.SetFloat("Shoot", fireAnimV);
+
+            pitch = -Input.GetAxis("Pitch");    
+            yaw = Input.GetAxis("Yaw");         
             roll = -Input.GetAxis("Roll");
+
+            float minValue = 0.1f;
+            SetAnimFloat("Pitch+", pitch, minValue);
+            SetAnimFloat("Pitch-", pitch, -minValue);
+            SetAnimFloat("Yaw+", yaw, minValue);
+            SetAnimFloat("Yaw-", yaw, -minValue);
+            SetAnimFloat("Roll+", roll, minValue);
+            SetAnimFloat("Roll-", roll, -minValue);
+
+            anim.SetFloat("Idle", 1.0f);
+
             //thrust = Mathf.Clamp(Input.GetAxis("Gas"),0.1f, 1f);  //legacy thrust
-            
+
             mechDragon.Rotate(mechDragon.right * pitch, Space.World);   //climb up or down  ("elevator")
             mechDragon.Rotate(mechDragon.up * yaw, Space.World);        //idly barrel roll  ("ailerons")
             mechDragon.Rotate(mechDragon.forward * roll, Space.World);  //steer left/right  ("rudder")
@@ -72,7 +134,10 @@ public class Player : MonoBehaviour {
         }
         else
             if (Input.GetButton("BreathFire"))
-                StartGame();
+        {
+            StartGame();
+            audioManager.PlayAudioAt(mechDragon.position, "GameStart");
+        }
             
         if (Input.GetKeyDown(KeyCode.R))
             InputTracking.Recenter();

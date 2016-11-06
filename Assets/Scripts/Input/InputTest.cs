@@ -26,7 +26,7 @@ public class InputTest : MonoBehaviour
         yaw = DragonInputController.Instance.GetYaw();
         gas = DragonInputController.Instance.GetGasSpeed();
 
-        resetCamera = DragonInputController.Instance.ResetCamera();
+        //resetCamera = DragonInputController.Instance.ResetCamera();
         breathFire = DragonInputController.Instance.BurpFire();
         fartOil = DragonInputController.Instance.FartFuel();
     }

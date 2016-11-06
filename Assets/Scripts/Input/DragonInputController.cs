@@ -32,7 +32,7 @@ public class DragonInputController : MonoBehaviour
         //AdjustSpeed();
         FartFuel();
         BurpFire();
-        ResetCamera();
+        //ResetCamera();
 	}
 
     #region Adjusting sixaxis movements with condition
@@ -227,14 +227,14 @@ public class DragonInputController : MonoBehaviour
         return false;
     }
 
-    public bool ResetCamera()
-    {
-        if(Input.GetButtonDown("ResetCamera") || Input.GetKeyDown(KeyCode.Escape))
-        {
-            return true;
-        }
+    //public bool ResetCamera()
+    //{
+    //    if(Input.GetButtonDown("ResetCamera") || Input.GetKeyDown(KeyCode.Escape))
+    //    {
+    //        return true;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
     
 }
