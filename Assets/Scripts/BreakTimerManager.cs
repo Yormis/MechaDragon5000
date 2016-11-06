@@ -60,7 +60,6 @@ public class BreakTimerManager : MonoBehaviour
         BreakingPartsKeys.Add(BreakingPoints.Turn_Right);
         BreakingPartsKeys.Add(BreakingPoints.Rotate_Left);
         BreakingPartsKeys.Add(BreakingPoints.Rotate_Right);
-        BreakingPartsKeys.Add(BreakingPoints.Shoot_Fire);
         BreakingPartsKeys.Add(BreakingPoints.Drop_Oil);
         BreakingPartsKeys.Add(BreakingPoints.Speed_Adjust);
 
@@ -90,7 +89,12 @@ public class BreakTimerManager : MonoBehaviour
         if(BreakTimes[0] <= m_timer)
         {
             string _randomKey = "";
-            if (BreakTimes.Count == 1)
+
+            if(BreakTimes.Count == 1)
+            {
+                _randomKey = BreakingPoints.Shoot_Fire;
+            }
+            else if (BreakTimes.Count == 2)
             {
                 _randomKey = BreakingPoints.Turn_Up;
             }
