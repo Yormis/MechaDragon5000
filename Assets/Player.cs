@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
             }
 
             //TODO drop oil
-            if (/*Input.GetButtonDown("Fire2")*/ m_breakableControls.FartFuel())
+            if (/*Input.GetButtonDown("Fire2")*/ m_breakableControls.DropFuel())
             {
                 audioManager.PlayAudioAt(mechDragon.position + new Vector3(0, -2.6f, -8.5f), "OilDrop");
             }
@@ -99,9 +99,9 @@ public class Player : MonoBehaviour {
             fireAnimV = Mathf.Clamp01(fireAnimV);
             anim.SetFloat("Shoot", fireAnimV);
 
-            pitch = -Input.GetAxis("Pitch");    
-            yaw = Input.GetAxis("Yaw");         
-            roll = -Input.GetAxis("Roll");
+            pitch = -m_breakableControls.GetPitch(); //-Input.GetAxis("Pitch");    
+            yaw = m_breakableControls.GetYaw(); //Input.GetAxis("Yaw");         
+            roll = -m_breakableControls.GetRoll(); //Input.GetAxis("Roll");
 
             float minValue = 0.1f;
             SetAnimFloat("Pitch+", pitch, minValue);
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour {
             //mechDragon.Rotate(new Vector3(0, -Vector3.Dot(Vector3.up, mechDragon.right), 0));
 
             //muista muokata fuel consumptionia thrustin/kaasun mukaan
-            if (Input.GetAxis("Gas") > 0.01f && thrust < MaxSpeed)
+            if (/*Input.GetAxis("Gas")*/ m_breakableControls.GetGasSpeed() > 0.01f && thrust < MaxSpeed)
             {
                 thrust = thrust + Time.deltaTime * acceleration;
             }
